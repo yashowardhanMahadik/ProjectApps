@@ -1,0 +1,47 @@
+version: '3'
+services:
+  reddit1:
+    container_name: reddit1-app
+    build:
+      context: reddit1/reddit1
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.data.mongodb.uri":"mongodb://mongoServer/red3"
+        }'
+    networks:
+      - my-network
+    depends_on:
+      - mongoServer
+  reddit2:
+    container_name: reddit2-app
+    build:
+      context: reddit2/reddit2
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.data.mongodb.uri":"mongodb://mongoServer/red3"
+        }'
+    networks:
+      - my-network
+    depends_on:
+      - mongoServer
+
+  mongoServer:
+    image: mongo:latest
+    ports:
+      - "27070:27017"
+    networks:
+      - my-network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  my-network:
+     driver: bridge
+volumes:
+  mongo-data:
