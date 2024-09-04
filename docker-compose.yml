@@ -1,15 +1,28 @@
 version: '3'
 services:
+  loadbalancer:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    networks:
+      - my-network
+    depends_on:
+      - reddit1
+      - reddit2
+
   reddit1:
     container_name: reddit1-app
     build:
       context: reddit1/reddit1
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "8080" # let the docker assign this port
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.data.mongodb.uri":"mongodb://mongoServer/red3"
+        "spring.data.mongodb.uri":"mongodb://mongoServer/red3",
+        "server.port":"8080"
         }'
     networks:
       - my-network
