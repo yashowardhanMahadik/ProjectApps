@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/reddit1/reddit1/pom.xml" />
         <option value="$PROJECT_DIR$/reddit2/reddit2/pom.xml" />
+        <option value="$PROJECT_DIR$/likeApp/pom.xml" />
+        <option value="$PROJECT_DIR$/kafkaConsumer/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
