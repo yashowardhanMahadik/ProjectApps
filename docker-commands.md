@@ -11,7 +11,6 @@ docker-compose down // to stop the docker
 docker-compose start 	// will start the service mentioned after looking for it in the images
 docker-compose stop 	// will stop the services 
 
-
 /usr/share/nginx/html/
 docker run -d -p 8088:80 -v ~/ymdocker:/usr/share/nginx/html/ --name webym nginx:1.27.0
 
