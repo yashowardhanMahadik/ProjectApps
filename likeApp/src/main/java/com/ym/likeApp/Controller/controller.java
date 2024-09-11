@@ -13,18 +13,25 @@ import java.time.Instant;
 @RequestMapping("/like")
 public class controller {
 
-    @Autowired
-    private KafkaTemplate<String, LikeEvent> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
-//    public controller(KafkaTemplate<String,LikeEvent> kafkaTemplate){
-//        this.kafkaTemplate = kafkaTemplate;
-//    }
+    public controller(KafkaTemplate<String,String> kafkaTemplate){
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
-    @PostMapping("/{postId}")
-    public ResponseEntity<Void> likePost(@PathVariable Long postId, @RequestBody Long userId){
-        LikeEvent likeEvent = new LikeEvent(postId,userId, Instant.now());
-        kafkaTemplate.send("like-topic",likeEvent);
-        return ResponseEntity.ok().build();
+    @GetMapping("/mockAdd/{message}")
+    public ResponseEntity<?> likePost(@PathVariable String message){
+        long postId = 12132;
+        long userId = 42414;
+//        LikeEvent likeEvent = new LikeEvent(postId,userId, Instant.now());
+//        kafkaTemplate.send("like-topic",likeEvent);
+        kafkaTemplate.send("like-topic",message);
+        return ResponseEntity.ok("likeEvent");
+    }
+
+    @GetMapping("/live")
+    public String isLive(){
+        return "ResponseEntity.ok().body(Like-app working)";
     }
 
 

@@ -52,6 +52,18 @@ services:
       - my-network
     depends_on:
       - kafka
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: "no"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+      # JVM_OPTS: "-Xms16M -Xmx512M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
+    ports:
+      - 9000:9000
+    depends_on:
+      - kafka
+    networks:
+      - my-network
 
   reddit1:
     container_name: reddit1-app
