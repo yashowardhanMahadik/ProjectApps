@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.time.Instant;
 
 @Component
@@ -14,7 +13,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class LikeEvent implements Serializable {
+public class LikeEvent{
     public long postId;
     public long userId;
     public Instant timestamp;

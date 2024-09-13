@@ -62,7 +62,8 @@ services:
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       SPRING_APPLICATION_JSON: '{
-          "spring.data.mongodb.uri":"mongodb://mongoServer/red3"
+          "spring.data.mongodb.uri":"mongodb://mongoServer/red3",
+          "spring.kafka.consumer.group-id":"YM-groupz"
           }'
     depends_on:
       - kafka

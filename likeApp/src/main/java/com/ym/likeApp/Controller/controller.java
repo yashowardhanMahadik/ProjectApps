@@ -1,5 +1,8 @@
 package com.ym.likeApp.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ym.likeApp.models.LikeEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +21,11 @@ public class controller {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    private final KafkaTemplate<String,LikeEvent> kafkaTemplate2;
+//    private final KafkaTemplate<String,LikeEvent> kafkaTemplate2;
 
-    public controller(KafkaTemplate<String, String> kafkaTemplate, KafkaTemplate<String,LikeEvent> kafkaTemplate2){
+    public controller(KafkaTemplate<String, String> kafkaTemplate){
         this.kafkaTemplate = kafkaTemplate;
-        this.kafkaTemplate2 = kafkaTemplate2;
+//        this.kafkaTemplate2 = kafkaTemplate2;
     }
 
     @GetMapping("/mockAdd/{message}")
@@ -37,8 +40,17 @@ public class controller {
     @PostMapping("/postId/{postId}")
     public ResponseEntity<?> addLikeToPost(@PathVariable Long postId, @RequestBody Long userId){
         LikeEvent likeEvent = new LikeEvent(postId,userId, Instant.now());
+        ObjectMapper Obj = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        try{
+            String jsonStr = Obj.writeValueAsString(likeEvent);
+            kafkaTemplate.send(TOPIC2,jsonStr);
+        }catch (Exception e){
+            System.out.println("EXXXXXXXeption occcccccured");
+            e.printStackTrace();
+        }
 
-        kafkaTemplate2.send(TOPIC2,likeEvent);
         return ResponseEntity.ok("TOPIC2  @ mongotopic");
     }
 
