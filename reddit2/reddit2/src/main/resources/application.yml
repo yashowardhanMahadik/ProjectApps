@@ -2,3 +2,4 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/red3
+      auto-index-creation: true

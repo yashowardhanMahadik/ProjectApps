@@ -16,5 +16,5 @@ public class Post {
     String postId;
     String subredditName;
     String text;
-//    List<String> comments;
+//    List<Comment> comments;
 }
