@@ -12,6 +12,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/post")
 public class PostController {
+    // check if the User present in the User table
+        //for now just create a User document separately in mongoDB
+    // check if the postId and userId exists or not and return the error accordingly
 
     @Autowired
     postService postService;
