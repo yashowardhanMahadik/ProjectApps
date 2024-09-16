@@ -17,6 +17,10 @@ public class postServiceImpl implements postService{
         return true;
     }
 
+    public boolean checkPostExist(String postId){
+        return postRepository.getPostById(postId) != null;
+    }
+
     @Override
     public boolean deletePost(String postId) {
         postRepository.deleteById(postId);

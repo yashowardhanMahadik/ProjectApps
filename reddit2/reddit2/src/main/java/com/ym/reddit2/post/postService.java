@@ -8,4 +8,5 @@ public interface postService {
     public boolean addPost(Post post);
     public boolean deletePost(String postId);
     public List<Post> getAll();
+    public boolean checkPostExist(String postId);
 }

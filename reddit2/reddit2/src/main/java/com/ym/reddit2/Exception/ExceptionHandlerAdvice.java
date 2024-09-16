@@ -21,6 +21,10 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<?> handlePostNotFoundException(PostNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("PostId does not exist, please enter valid postId");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()+" PostId does not exist, please enter valid postId");
+    }
+
+    public ResponseEntity<?> handleAllExceptions(Exception e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getStackTrace()+" Other error message: "+ e.getMessage());
     }
  }
