@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
 
@@ -24,7 +27,13 @@ public class ExceptionHandlerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()+" PostId does not exist, please enter valid postId");
     }
 
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleAllExceptions(Exception e){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getStackTrace()+" Other error message: "+ e.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(500,e.getMessage()+"zzz "+ Arrays.stream(e.getStackTrace())
+                .map(StackTraceElement::toString)
+//                .reduce("",(curr,res)-> curr+"-> \n "+res)
+                .collect(Collectors.toList())
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
  }

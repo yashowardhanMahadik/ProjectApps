@@ -25,7 +25,7 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<Boolean> createPost(@RequestBody Post post){
-        return ResponseEntity.ok(postService.addPost(post));
+            return ResponseEntity.ok(postService.addPost(post));
     }
 
     @PostMapping("/addComment")

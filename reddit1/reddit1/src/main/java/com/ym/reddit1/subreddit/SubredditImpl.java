@@ -17,6 +17,7 @@ public class SubredditImpl {
     }
 
     public boolean checkSubreddit(String name){
+        System.out.println("zzz "+subredditRepo.findByName(name));
        return subredditRepo.findByName(name).isPresent();
     }
 

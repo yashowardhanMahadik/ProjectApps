@@ -1,0 +1,7 @@
+package com.ym.reddit2.Exception;
+
+public class SubredditNotFoundException extends RuntimeException{
+    public SubredditNotFoundException(String message){
+        super(message);
+    }
+}

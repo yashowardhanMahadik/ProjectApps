@@ -4,10 +4,7 @@ import com.ym.reddit1.models.Subreddit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,12 @@ public class SubredditController {
     public ResponseEntity<Subreddit> create(@RequestBody String name){
         subredditImpl.addSubreddit(name);
         return ResponseEntity.ok(new Subreddit(name));
+    }
+
+    @GetMapping("/check/{name}")
+    @ResponseBody
+    public boolean checkSubredditExists(@PathVariable String name){
+         return subredditImpl.checkSubreddit(name);
     }
 
     @GetMapping("/get")
