@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class SubredditImpl {
@@ -23,5 +24,9 @@ public class SubredditImpl {
 
     public List<Subreddit> getAll(){
         return subredditRepo.findAll();
+    }
+
+    public List<String> search(String key){
+      return subredditRepo.searchByKey(key).stream().map(sub-> sub.getName()).collect(Collectors.toList());
     }
 }

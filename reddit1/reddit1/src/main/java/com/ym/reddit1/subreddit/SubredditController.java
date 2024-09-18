@@ -32,4 +32,9 @@ public class SubredditController {
     public ResponseEntity<List<Subreddit>> getAll(){
         return ResponseEntity.ok(subredditImpl.getAll());
     }
+
+    @GetMapping("/search/{key}")
+    public ResponseEntity<?> getByKey(@PathVariable String key){
+        return ResponseEntity.ok(subredditImpl.search(key));
+    }
 }
