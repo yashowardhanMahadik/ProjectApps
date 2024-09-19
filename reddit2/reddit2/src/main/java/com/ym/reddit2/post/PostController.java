@@ -3,6 +3,7 @@ package com.ym.reddit2.post;
 import com.ym.reddit2.models.Comment;
 import com.ym.reddit2.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +49,11 @@ public class PostController {
     public ResponseEntity<Boolean> deletePost(@PathVariable String id){
         postService.deletePost(id);
         return ResponseEntity.ok().body(true);
+    }
+    @GetMapping("/products")
+    @ResponseBody
+    public Page<Comment> getProducts(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int size) {
+        return commentService.getPaginatedProducts(page, size);
     }
 }

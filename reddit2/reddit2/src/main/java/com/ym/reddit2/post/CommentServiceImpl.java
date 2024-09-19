@@ -4,6 +4,9 @@ import com.ym.reddit2.Exception.PostNotFoundException;
 import com.ym.reddit2.models.Comment;
 import com.ym.reddit2.repository.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +39,10 @@ public class CommentServiceImpl implements CommentService {
             throw new PostNotFoundException(postId+" does not exist");
         }
         return commentRepo.findAll(postId);
+    }
+
+    public Page<Comment> getPaginatedProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return commentRepo.findAll(pageable);
     }
 }
