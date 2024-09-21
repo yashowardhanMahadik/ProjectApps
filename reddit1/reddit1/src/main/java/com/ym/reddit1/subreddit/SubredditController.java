@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/sub")
+@RequestMapping("/red1/sub")
 public class SubredditController {
 
     @Autowired

@@ -9,6 +9,7 @@ public interface postService {
     public boolean deletePost(String postId);
     public List<Post> getAll();
     public boolean checkPostExist(String postId);
+    public boolean checkUserExist(int postId);
 
     public boolean checkSubredditExist(String name);
 }

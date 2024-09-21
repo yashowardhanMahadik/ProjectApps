@@ -22,4 +22,8 @@ public class UserServiceImpl {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         return userRepo.findAll(pageable);
     }
+
+    public User getUserById(int id){
+        return userRepo.findByUserId(id);
+    }
 }

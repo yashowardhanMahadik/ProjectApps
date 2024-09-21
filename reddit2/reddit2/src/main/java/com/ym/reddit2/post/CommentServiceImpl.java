@@ -1,6 +1,7 @@
 package com.ym.reddit2.post;
 
 import com.ym.reddit2.Exception.PostNotFoundException;
+import com.ym.reddit2.Exception.UserNotFoundException;
 import com.ym.reddit2.models.Comment;
 import com.ym.reddit2.repository.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class CommentServiceImpl implements CommentService {
         if(!postOb.checkPostExist(comment.getPostId())){
             throw new PostNotFoundException(comment.getPostId()+" does not exist");
         }
+        System.out.println("USer id is : "+comment.getUserId());
+        if(!postOb.checkUserExist(Integer.parseInt(comment.getUserId()))){
+            throw new UserNotFoundException("User id "+comment.getUserId()+" does not exist");
+        }
+
         commentRepo.save(comment);
     }
 

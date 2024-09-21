@@ -4,9 +4,13 @@ import com.ym.reddit2.Exception.WSException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Service
 public class WebService {
-    public final static String SUBREDDIT_CHECK_URL = "http://localhost:8881/sub/check";
+    public final static String SUBREDDIT_CHECK_URL = "http://localhost:8881/red1/sub/check";
+    public final static String USER_CHECK_URL = "http://localhost:8881/red1/user/getUser";
 
     private final RestTemplate restTemplate;
 
@@ -22,5 +26,17 @@ public class WebService {
             throw new WSException(e.getMessage());
         }
 
+    }
+
+    public boolean checkUserExist(int id){
+        String url = USER_CHECK_URL+"/"+id;
+        try{
+            Object ob =  restTemplate.getForObject(url, Object.class);
+            return ob!=null;
+        }
+        catch(Exception e){
+            throw new WSException(e.getMessage()+" WS EXCEPTION : "
+                    + Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.toList()));
+        }
     }
 }

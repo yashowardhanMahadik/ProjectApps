@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/red1/user")
 public class UserController {
 
     @Autowired
@@ -34,6 +34,12 @@ public class UserController {
     public ResponseEntity<?> getUsers2(@RequestParam(required = true,defaultValue = "0") Integer pageNumber,
                                        @RequestParam(required = true,defaultValue = "10") Integer pageSize){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.getAllUsers(pageNumber,pageSize));
+    }
+
+    @GetMapping("/getUser/{id}")
+    @ResponseBody
+    public User getUserById(@PathVariable int id){
+        return userService.getUserById(id);
     }
 
 

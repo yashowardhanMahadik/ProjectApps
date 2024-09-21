@@ -29,6 +29,11 @@ public class postServiceImpl implements postService{
     }
 
     @Override
+    public boolean checkUserExist(int id) {
+        return ws.checkUserExist(id);
+    }
+
+    @Override
     public boolean deletePost(String postId) {
         postRepository.deleteById(postId);
         return true;
