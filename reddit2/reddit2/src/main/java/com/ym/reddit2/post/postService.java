@@ -12,4 +12,7 @@ public interface postService {
     public boolean checkUserExist(int postId);
 
     public boolean checkSubredditExist(String name);
+    public boolean getAllPostsOfUser(String userId);
+
+    public boolean addPostByUser(Post post, String userId);
 }

@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "../../docker/nginx-docker-compose"
+		},
+		{
+			"path": "../../docker/compose2/dock3"
+		},
+		{
+			"path": "../../docker/compose2/ymdocker"
+		},
+		{
+			"path": "../../docker/compose2/kafka-compose"
+		},
+		{
+			"path": "../../docker/compose2/kafka2"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}

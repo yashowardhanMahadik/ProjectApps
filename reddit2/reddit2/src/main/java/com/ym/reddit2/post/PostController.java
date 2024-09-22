@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/post")
@@ -27,6 +28,11 @@ public class PostController {
     @PostMapping("/create")
     public ResponseEntity<Boolean> createPost(@RequestBody Post post){
             return ResponseEntity.ok(postService.addPost(post));
+    }
+    @PostMapping("/createByUser")
+    public ResponseEntity<Boolean> createPostByUser(@RequestBody Post post,
+                                              @RequestParam(required = true,defaultValue = "Yashow") String userId){
+        return ResponseEntity.ok(postService.addPostByUser(post,userId));
     }
 
     @PostMapping("/addComment")
