@@ -1,5 +1,6 @@
 package com.ym.reddit2.post;
 
+import com.ym.reddit2.Exception.PostNotFoundException;
 import com.ym.reddit2.Exception.SubredditNotFoundException;
 import com.ym.reddit2.models.Post;
 import com.ym.reddit2.models.PostByUser;
@@ -8,6 +9,7 @@ import com.ym.reddit2.repository.PostRepository;
 import com.ym.reddit2.ws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class postServiceImpl implements postService{
     @Override
     public boolean addPost(Post post) {
         if(checkSubredditExist(post.getSubredditName())) {
-            postRepository.insert(post);
+            insertPost(post);
             return true;
         }
         throw new SubredditNotFoundException("Subreddit not found in the DB");
@@ -59,12 +61,28 @@ public class postServiceImpl implements postService{
     }
 
     @Override
+    @Transactional //only works with the replica set, generally online mongo provide the replica sets
     public boolean addPostByUser(Post post, String userId) {
         if(checkSubredditExist(post.getSubredditName())) {
             postByUserRepo.insert(new PostByUser(userId,post.getPostId()));
-            postRepository.insert(post);
+            try {
+                insertPost(post);
+            }catch (Exception e){
+                throw new PostNotFoundException("Rollback now "+e.getMessage());
+            }
             return true;
         }
         throw new SubredditNotFoundException("Subreddit not found in the DB");
+    }
+
+    @Transactional
+    private void insertPost(Post post) {
+        try{
+        postRepository.insert(post);
+//            throw new RuntimeException("bbbbbbad exception");
+        }
+        catch (Exception e){
+            throw new PostNotFoundException(e.getMessage());
+        }
     }
 }
