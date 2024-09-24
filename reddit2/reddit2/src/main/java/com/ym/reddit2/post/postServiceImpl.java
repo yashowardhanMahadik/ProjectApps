@@ -61,7 +61,7 @@ public class postServiceImpl implements postService{
     }
 
     @Override
-    @Transactional //only works with the replica set, generally online mongo provide the replica sets
+    //@Transactional //only works with the replica set, generally online mongo provide the replica sets
     public boolean addPostByUser(Post post, String userId) {
         if(checkSubredditExist(post.getSubredditName())) {
             postByUserRepo.insert(new PostByUser(userId,post.getPostId()));
@@ -75,7 +75,7 @@ public class postServiceImpl implements postService{
         throw new SubredditNotFoundException("Subreddit not found in the DB");
     }
 
-    @Transactional
+    //@Transactional
     private void insertPost(Post post) {
         try{
         postRepository.insert(post);
