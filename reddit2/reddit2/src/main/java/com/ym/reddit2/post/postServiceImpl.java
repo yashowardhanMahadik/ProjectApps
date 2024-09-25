@@ -64,10 +64,15 @@ public class postServiceImpl implements postService{
     //@Transactional //only works with the replica set, generally online mongo provide the replica sets
     public boolean addPostByUser(Post post, String userId) {
         if(checkSubredditExist(post.getSubredditName())) {
-            postByUserRepo.insert(new PostByUser(userId,post.getPostId()));
+            PostByUser postByUser = new PostByUser(userId, post.getPostId());
+            postByUserRepo.insert(postByUser);
+//            System.out.println("zzz 1");
             try {
+//                System.out.println("zzz 2");
                 insertPost(post);
             }catch (Exception e){
+//                System.out.println("zzz 3");
+                postByUserRepo.deleteByUserIdPostId(userId,post.getPostId());
                 throw new PostNotFoundException("Rollback now "+e.getMessage());
             }
             return true;
@@ -79,6 +84,7 @@ public class postServiceImpl implements postService{
     private void insertPost(Post post) {
         try{
         postRepository.insert(post);
+//            System.out.println("zzz 4");
 //            throw new RuntimeException("bbbbbbad exception");
         }
         catch (Exception e){
