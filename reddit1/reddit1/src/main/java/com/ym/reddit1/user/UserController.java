@@ -42,5 +42,24 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @PostMapping("/follow/{followerId}")
+    @ResponseBody
+    public boolean followUser(@PathVariable String followerId, @RequestBody String userId){
+        if (checkUsersExist(followerId, userId)) return false;
+        userService.followUser(userId,followerId);
+        return true;
+    }
+
+    private boolean checkUsersExist(String followerId, String userId) {
+        User userById = userService.getUserById(Integer.parseInt(followerId));
+        System.out.println("User is : "+userById);
+        User follower = userService.getUserById(Integer.parseInt(userId));
+        System.out.println("Follower is : "+follower);
+
+        if(userById == null || follower == null)
+            return true;
+        return false;
+    }
+
 
 }

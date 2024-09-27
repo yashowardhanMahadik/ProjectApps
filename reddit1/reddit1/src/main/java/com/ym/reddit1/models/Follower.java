@@ -13,6 +13,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Followers")
 @CompoundIndex(name = "hoho2",def = "{'userId': 1, 'followerId': 1}",unique = true)
 public class Follower {
+
+    public Follower(String userId, String followerId){
+        this.userId = userId;
+        this.followerId= followerId;
+    }
     @Id
     String id;
     String userId;

@@ -1,5 +1,6 @@
 package com.ym.reddit1.user;
 
+import com.ym.reddit1.models.Follower;
 import com.ym.reddit1.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,8 @@ public class UserServiceImpl {
 
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    FollowerRepo followerRepo;
 
     public boolean createUser(User user){
         userRepo.save(user);
@@ -25,5 +28,10 @@ public class UserServiceImpl {
 
     public User getUserById(int id){
         return userRepo.findByUserId(id);
+    }
+
+    public boolean followUser(String userId, String followerId){
+        followerRepo.save(new Follower(userId,followerId));
+        return true;
     }
 }
