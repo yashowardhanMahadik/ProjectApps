@@ -91,4 +91,11 @@ public class postServiceImpl implements postService{
             throw new PostNotFoundException(e.getMessage());
         }
     }
+    @Override
+    public List<Post> getFeed(String userId) {
+        // based on who follower follows gathers the users latest post list
+        // need to add the userId in the post object
+        return null;
+    }
+
 }

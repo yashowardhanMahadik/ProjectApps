@@ -15,4 +15,6 @@ public interface postService {
     public boolean getAllPostsOfUser(String userId);
 
     public boolean addPostByUser(Post post, String userId);
+
+    public List<Post> getFeed(String userId);
 }
