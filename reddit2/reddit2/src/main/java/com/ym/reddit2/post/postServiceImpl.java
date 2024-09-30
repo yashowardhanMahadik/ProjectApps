@@ -94,7 +94,12 @@ public class postServiceImpl implements postService{
     @Override
     public List<Post> getFeed(String userId) {
         // based on who follower follows gathers the users latest post list
+            // get list of user subscribed accounts
+            // from that list get the userId then get posts of each userId
         // need to add the userId in the post object
+
+
+
         return null;
     }
 

@@ -15,6 +15,7 @@ import java.util.List;
 public class Post {
     @Indexed(unique = true)
     String postId;
+    String byUserId;
     String subredditName;
     String text;
 //    List<Comment> comments;

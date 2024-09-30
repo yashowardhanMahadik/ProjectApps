@@ -50,6 +50,8 @@ public class UserController {
         return true;
     }
 
+    //todo: add new endpoint which returns the list of user subscribed accounts
+
     private boolean checkUsersExist(String followerId, String userId) {
         User userById = userService.getUserById(Integer.parseInt(followerId));
         System.out.println("User is : "+userById);
