@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,6 +52,12 @@ public class UserController {
     }
 
     //todo: add new endpoint which returns the list of user subscribed accounts
+
+    @GetMapping("follow/get/{followerId}")
+    public List<String> getFollowingUsers(@PathVariable String followerId){
+        System.out.println("followerId is : "+followerId);
+        return userService.getFollowingUser(followerId);
+    }
     //hgit
 
     private boolean checkUsersExist(String followerId, String userId) {

@@ -62,4 +62,11 @@ public class PostController {
                                      @RequestParam(defaultValue = "10") int size) {
         return commentService.getPaginatedProducts(page, size);
     }
+
+    @GetMapping("/getFeed/{userId}")
+    @ResponseBody
+    public List<Post> getFeed(@PathVariable String userId){
+        System.out.println("User id fetched : "+userId);
+        return postService.getFeed(userId);
+    }
 }

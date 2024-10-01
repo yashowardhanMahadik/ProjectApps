@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class postServiceImpl implements postService{
@@ -95,12 +96,16 @@ public class postServiceImpl implements postService{
     public List<Post> getFeed(String userId) {
         // based on who follower follows gathers the users latest post list
             // get list of user subscribed accounts
-            // from that list get the userId then get posts of each userId
+        List<String> users = ws.getFollowingList(userId);
+        System.out.println("List from the WS is below ");
+        users.stream().forEach(System.out::println);
+        List<Post> postList = users.stream().map(id -> postRepository.getUsersPost(id)).collect(Collectors.toList());
+        System.out.println("Post from the collection is below ");
+        postList.stream().forEach(System.out::println);
+        // from that list get the userId then get posts of each userId
         // need to add the userId in the post object
 
-
-
-        return null;
+        return postList;
     }
 
 }
