@@ -51,6 +51,7 @@ public class UserController {
     }
 
     //todo: add new endpoint which returns the list of user subscribed accounts
+    //hgit
 
     private boolean checkUsersExist(String followerId, String userId) {
         User userById = userService.getUserById(Integer.parseInt(followerId));
