@@ -100,6 +100,7 @@ public class postServiceImpl implements postService{
         List<String> users = ws.getFollowingList(userId);
         System.out.println("List from the WS is below ");
         users.stream().forEach(System.out::println);
+        //get user post according to the timestamp
         List<Post> postList = users.stream().map(id -> postRepository.getUsersPost(id)).collect(Collectors.toList());
         System.out.println("Post from the collection is below ");
         postList.stream().forEach(System.out::println);
