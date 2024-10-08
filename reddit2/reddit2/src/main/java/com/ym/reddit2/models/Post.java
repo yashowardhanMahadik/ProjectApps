@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -18,5 +19,6 @@ public class Post {
     String byUserId;
     String subredditName;
     String text;
+    Instant timestamp;
 //    List<Comment> comments;
 }
