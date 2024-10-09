@@ -3,3 +3,6 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/red3
       auto-index-creation: true
+app:
+  red1:
+    url: http://localhost:8881/red1

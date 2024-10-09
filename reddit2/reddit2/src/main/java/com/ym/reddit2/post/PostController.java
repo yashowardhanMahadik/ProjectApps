@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,13 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<Boolean> createPost(@RequestBody Post post){
+            post.setTimestamp(Instant.now());
             return ResponseEntity.ok(postService.addPost(post));
     }
     @PostMapping("/createByUser")
     public ResponseEntity<Boolean> createPostByUser(@RequestBody Post post,
                                               @RequestParam(required = true,defaultValue = "Yashow") String userId){
+        post.setTimestamp(Instant.now());
         return ResponseEntity.ok(postService.addPostByUser(post,userId));
     }
 
@@ -69,4 +72,5 @@ public class PostController {
         System.out.println("User id fetched : "+userId);
         return postService.getFeed(userId);
     }
+    //todo: next step create postman collection and import it in the git hub, also set envs for docker and local separately
 }

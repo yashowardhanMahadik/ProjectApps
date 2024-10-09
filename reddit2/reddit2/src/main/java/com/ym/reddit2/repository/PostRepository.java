@@ -14,7 +14,7 @@ public interface PostRepository extends MongoRepository<Post,String> {
 
     @Aggregation(pipeline = {
             "{ '$match': { 'byUserId' : ?0 } }",
-            "{ '$sort' : { 'postId' : 1 } }",
+            "{ '$sort' : {'timestamp' : -1, 'postId' : 1 } }",
             "{ '$limit' : 1 }"
     })
     public Post getUsersPost(String id);
