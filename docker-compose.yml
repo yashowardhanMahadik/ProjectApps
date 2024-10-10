@@ -110,7 +110,8 @@ services:
       - "8080:8080"
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.data.mongodb.uri":"mongodb://mongoServer/red3"
+        "spring.data.mongodb.uri":"mongodb://mongoServer/red3",
+        "app.red1.url":"http://reddit1:8080/red1"
         }'
     networks:
       - my-network

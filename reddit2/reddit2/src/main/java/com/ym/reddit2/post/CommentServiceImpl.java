@@ -1,5 +1,7 @@
 package com.ym.reddit2.post;
 
+import com.mongodb.DuplicateKeyException;
+import com.ym.reddit2.Exception.DuplicateCommentException;
 import com.ym.reddit2.Exception.PostNotFoundException;
 import com.ym.reddit2.Exception.UserNotFoundException;
 import com.ym.reddit2.models.Comment;
@@ -29,8 +31,11 @@ public class CommentServiceImpl implements CommentService {
         if(!postOb.checkUserExist(Integer.parseInt(comment.getUserId()))){
             throw new UserNotFoundException("User id "+comment.getUserId()+" does not exist");
         }
-
-        commentRepo.save(comment);
+        try {
+            commentRepo.save(comment);
+        }catch (DuplicateKeyException e){
+            throw new DuplicateCommentException("UserId and postId same, comment already exists");
+        }
     }
 
     @Override
