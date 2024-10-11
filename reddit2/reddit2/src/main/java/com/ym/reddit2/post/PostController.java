@@ -73,4 +73,6 @@ public class PostController {
         return postService.getFeed(userId);
     }
     //todo: next step create postman collection and import it in the git hub, also set envs for docker and local separately
+
+    //now implement the upvote and downvote functionalitygit
 }
