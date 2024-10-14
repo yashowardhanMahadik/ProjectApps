@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 public class beans {
     public static final String TOPIC1 =  "like-topic";
     public static final String TOPIC2 =  "mongo-topic";
+
+    public static final String TOPIC3 =  "mongo-topic";
     @Bean
     public NewTopic topic(){
         return TopicBuilder.name(TOPIC1)
@@ -18,6 +20,12 @@ public class beans {
 
     public NewTopic mongoTopic(){
         return TopicBuilder.name(TOPIC2)
+                .partitions(2)
+                .build();
+    }
+
+    public NewTopic voteTopic(){
+        return TopicBuilder.name(TOPIC3)
                 .partitions(2)
                 .build();
     }

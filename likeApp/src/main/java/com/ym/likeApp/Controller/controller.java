@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ym.likeApp.models.LikeEvent;
+import com.ym.likeApp.models.Vote;
+import com.ym.likeApp.models.VoteEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 
-import static com.ym.likeApp.beans.TOPIC1;
-import static com.ym.likeApp.beans.TOPIC2;
+import static com.ym.likeApp.beans.*;
 
 @RestController
 @RequestMapping("/like")
@@ -52,6 +53,38 @@ public class controller {
         }
 
         return ResponseEntity.ok("TOPIC2  @ mongotopic");
+    }
+    @PostMapping("/postId/{postId}")
+    public ResponseEntity<?> upvotePost(@PathVariable Long postId, @RequestBody Long userId){
+        VoteEvent voteEvent = new VoteEvent(postId,userId,Vote.UPVOTE, Instant.now());
+        ObjectMapper Obj = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        try{
+            String jsonStr = Obj.writeValueAsString(voteEvent);
+            kafkaTemplate.send(TOPIC3,jsonStr);
+        }catch (Exception e){
+            System.out.println("EXXXXXXXeption occcccccured");
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok("TOPIC upvote  @ mongotopic");
+    }
+    @PostMapping("/postId/{postId}")
+    public ResponseEntity<?> downvotePost(@PathVariable Long postId, @RequestBody Long userId){
+        VoteEvent voteEvent = new VoteEvent(postId,userId, Vote.DOWNVOTE, Instant.now());
+        ObjectMapper Obj = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        try{
+            String jsonStr = Obj.writeValueAsString(voteEvent);
+            kafkaTemplate.send(TOPIC3,jsonStr);
+        }catch (Exception e){
+            System.out.println("EXXXXXXXeption occcccccured");
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok("TOPIC downvote  @ mongotopic");
     }
 
     @GetMapping("/live")
