@@ -4,12 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ym.likeApp.models.LikeEvent;
-import com.ym.likeApp.models.Vote;
 import com.ym.likeApp.models.VoteEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -54,9 +51,9 @@ public class controller {
 
         return ResponseEntity.ok("TOPIC2  @ mongotopic");
     }
-    @PostMapping("/postId/{postId}")
+    @PostMapping("/upvote/{postId}")
     public ResponseEntity<?> upvotePost(@PathVariable Long postId, @RequestBody Long userId){
-        VoteEvent voteEvent = new VoteEvent(postId,userId,Vote.UPVOTE, Instant.now());
+        VoteEvent voteEvent = new VoteEvent(postId,userId,"upvote", Instant.now());
         ObjectMapper Obj = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();
@@ -70,9 +67,9 @@ public class controller {
 
         return ResponseEntity.ok("TOPIC upvote  @ mongotopic");
     }
-    @PostMapping("/postId/{postId}")
+    @PostMapping("/downvote/{postId}")
     public ResponseEntity<?> downvotePost(@PathVariable Long postId, @RequestBody Long userId){
-        VoteEvent voteEvent = new VoteEvent(postId,userId, Vote.DOWNVOTE, Instant.now());
+        VoteEvent voteEvent = new VoteEvent(postId,userId, "downvote", Instant.now());
         ObjectMapper Obj = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();

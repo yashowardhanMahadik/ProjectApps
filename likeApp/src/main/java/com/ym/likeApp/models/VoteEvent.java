@@ -16,6 +16,6 @@ import java.time.Instant;
 public class VoteEvent {
     public long postId;
     public long userId;
-    public Vote type;
+    public String type;
     public Instant timestamp;
 }
