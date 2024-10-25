@@ -11,19 +11,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaListenerClass {
+    @Autowired
+    DBoperation repo;
     public static final String TOPIC2 = "mongo-topic";
     public static final String TOPIC3 = "mongo-topic";
     public static final String GROUP_ID = "YM-groupz";
 
-    @Autowired
-    LikeRepo repo;
 
-//    @Autowired
-//    MongoVoteRepo voteRepo;
 
-    public KafkaListenerClass(LikeRepo mongoRepo){
-        this.repo = mongoRepo;
-    }
+
+
+//    public KafkaListenerClass(LikeRepo mongoRepo){
+//        this.repo = mongoRepo;
+//    }
 
     @KafkaListener(topics = TOPIC2, groupId = GROUP_ID)
     public void consumeMsg(String jsonStr) {
